@@ -208,8 +208,8 @@ function Rectangle(width, height) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { height: 10, width: 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 /**
@@ -223,8 +223,20 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const property = JSON.parse(json);
+  const newObject = Object.create(proto);
+  Object.keys(property).forEach((key) => {
+    if (key in property) {
+      Object.defineProperty(newObject, key, {
+        value: property[key],
+        writable: true,
+        enumerable: true,
+        configurable: true,
+      });
+    }
+  });
+  return newObject;
 }
 
 /**
