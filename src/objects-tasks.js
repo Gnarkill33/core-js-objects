@@ -302,20 +302,20 @@ function sortCitiesArray(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  const result = new Map();
+  const resultMap = new Map();
 
   array.forEach((item) => {
     const key = keySelector(item);
     const value = valueSelector(item);
 
-    if (!result.has(key)) {
-      result.set(key, []);
+    if (!resultMap.has(key)) {
+      resultMap.set(key, []);
     }
 
-    result.get(key).push(value);
+    resultMap.get(key).push(value);
   });
 
-  return result;
+  return resultMap;
 }
 
 /**
